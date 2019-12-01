@@ -1,5 +1,5 @@
 # Transaction-fraud-detection
-Some ideas and sum-ups from kernals+discussions. The final result is 0.9293 (Top 10%).
+Some ideas and sum-ups from kernals+discussions. The final result is 0.928345 (Top 10%).
 
   1. Data loading
   
