@@ -1,0 +1,26 @@
+train['TransactionDT'].plot(kind='hist',
+                                        figsize=(15, 5),
+                                        label='train',
+                                        bins=50,
+                                        title='Train vs Test TransactionDT distribution')
+test['TransactionDT'].plot(kind='hist',
+                                       label='test',
+                                       bins=50)
+plt.legend()
+plt.show()
+
+
+### 添加hour这个特征
+时间是一个很重要的属性，公司给的数据是按秒计算的，需要通过np.floor得到小时，比如49.123小时会转化成49小时，然后取24的余数，就是1。这样49.123小时就变成了1，但是这个1意义不明确，不知道是晚上还是下午。
+train["hour"] = np.floor(train["TransactionDT"] / 3600) % 24
+test["hour"] = np.floor(train["TransactionDT"] / 3600) % 24
+
+plt.plot(train.groupby('hour').mean()['isFraud'], color='r')
+ax = plt.gca()
+ax2 = ax.twinx()
+_ = ax2.hist(train['hour'], alpha=0.3, bins=24)
+ax.set_xlabel('Encoded hour')
+ax.set_ylabel('Fraction of fraudulent transactions')
+
+ax2.set_ylabel('Number of transactions')
+plt.show()
