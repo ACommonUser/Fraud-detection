@@ -1,1 +1,29 @@
+### 特征工程 ###
 
+df = pd.concat([train[col],test[col]],axis=0)
+train[col] = df[:len(train)]
+test[col] = df[len(train):]
+
+第一步：标签编码，因为维度太多了，不想再增加维度
+df[col] = df[col].factorize()
+
+if df[col].max()<128: df[col] = df[col].astype('int8')
+elif df[col].max()<32768: df[col] = df[col].astype('int16')
+else: df[col].astype('int32')
+
+for col in df.columns:
+    if df[col].dtype=='float64': df[col] = df[col].astype('float32')
+    if df[col].dtype=='int64': df[col] = df[col].astype('int32')
+
+第二步：缺失值处理
+可以不处理（因为树算法不会对nan特殊处理）或者使用随即森林拟合
+
+第三步：特征组合/转化
+例如：df['uid'] = df[‘card1’].astype(str)+’_’+df[‘card2’].astype(str)
+df['x1_x2'] = df['x1'] * df['x2']
+
+第四步：标准化
+df[col] = ( df[col]-df[col].mean() ) / df[col].std() 
+
+其他：降维/smooth/outlier removal
+可以使用平滑的技巧，pca
