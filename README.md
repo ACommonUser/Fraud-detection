@@ -5,7 +5,7 @@ Some ideas and sum-ups from kernals+discussions. The final result is 0.928345 (T
   
   2. Data exploration (what's inside the data)
   
-  3. Data transformation (Some magical solutions are also presented here)
+  3. Data transformation 
   
   4. Model implementation and selection
   
